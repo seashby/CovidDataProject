@@ -11,20 +11,31 @@ class CovidData:
         self.positivetests = positives
         print("Data Point Created")
 
-# Set up a list to hold the Covid Data
+# Read the data from a CSV file and store
+# it in a list for analysis
+
+# Declare Lists to hold data
 
 testDataList = []
+templist = []
 
-testDataList.append(CovidData("04012020", 1000, 45))
-testDataList.append(CovidData("04022020", 2241, 155))
-testDataList.append(CovidData("04032020", 1406, 75))
-testDataList.append(CovidData("04042020", 1376, 62))
-testDataList.append(CovidData("04052020", 845, 37))
-testDataList.append(CovidData("04062020", 2949, 155))
-testDataList.append(CovidData("04072020", 2176, 112))
-testDataList.append(CovidData("04082020", 1863, 91))
-testDataList.append(CovidData("04092020", 1777, 71))
-testDataList.append(CovidData("04102020", 2341, 137))
+# Opens the data file
+
+f = open('datafile.csv')
+
+# Loops through the data file and reads it line by line
+# and then splits the line into three variables and loads
+# them as CovidData objects into the testDataList
+
+for read_data in f:
+    read_data = f.readline().strip()
+    templist = read_data.split(',')
+    testDataList.append(CovidData(templist[0], int(templist[1]), int(templist[2])))
+
+# Close the CSV data file
+
+f.close
+
 
 # Function to determine length of list
 def listlength(x):
@@ -38,13 +49,13 @@ def average(x,y):
 n = listlength(testDataList)
 print("Number of data points -- ",n)
 
-# Calculates the average daily postive tests for Oregon
+# Calculates the average daily positive tests for Oregon
 total = 0
 for i in range(n-1):
     total = total + testDataList[i].positivetests
 
 totalpostests = average(total,n)
-print("Total positive tests -- ", totalpostests)
+print("Average daily positive tests -- ", totalpostests)
 
 #Calculates the average daily total tests in Oregon
 total = 0
@@ -52,7 +63,7 @@ for i in range(n-1):
     total = total + testDataList[i].totaltests
 
 totaltests = average(total,n)
-print("Total tests -- ", totaltests)
+print("Average daily tests -- ", totaltests)
 
 # Calculates the indicated infection rate of persons tested
 
