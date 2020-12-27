@@ -11,24 +11,30 @@ class CovidData:
         self.positivetests = positives
         print("Data Point Created")
 
+    def __str__(self):
+        return "Test Date = %s, Tests performed = %d, Positive Tests = %d" %(self.testdate, self.totaltests,
+        self.positivetests)
+
 # Read the data from a CSV file and store
 # it in a list for analysis
 
-# Declare Lists to hold data
+# Declare Lists and variables to hold data
 
 testDataList = []
 templist = []
+#read_data = " "
 
 # Opens the data file
 
-f = open('datafile.csv')
+f = open('DataFile.csv')
 
 # Loops through the data file and reads it line by line
 # and then splits the line into three variables and loads
 # them as CovidData objects into the testDataList
 
 for read_data in f:
-    read_data = f.readline().strip()
+    #read_data = f.readline()
+    read_data = read_data.strip()
     templist = read_data.split(',')
     testDataList.append(CovidData(templist[0], int(templist[1]), int(templist[2])))
 
